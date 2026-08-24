@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #17211b;
+  --color-forest: #245b45;
+  --color-mint: #dff3e8;
+  --color-canvas: #f5f7f4;
+  --font-sans: "Inter", "Segoe UI", sans-serif;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--color-canvas); color: var(--color-ink); }
+  button, input { font: inherit; }
+}
