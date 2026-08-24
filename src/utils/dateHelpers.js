@@ -3,7 +3,15 @@ export function formatDisplayDate(date = new Date()) {
 }
 
 export function formatDueDate(dateString) {
+  if (!isValidDueDate(dateString)) return ''
   return new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(`${dateString}T00:00:00`))
+}
+
+export function isValidDueDate(dateString) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString ?? '')) return false
+  const [year, month, day] = dateString.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
 }
 
 export function getLocalDateKey(date = new Date()) {
@@ -14,7 +22,7 @@ export function getLocalDateKey(date = new Date()) {
 }
 
 export function getDueDateStatus(todo, today = new Date()) {
-  if (!todo.dueDate) return { type: 'none', label: '' }
+  if (!isValidDueDate(todo.dueDate)) return { type: 'none', label: '' }
 
   const todayKey = getLocalDateKey(today)
   if (!todo.completed && todo.dueDate < todayKey) return { type: 'overdue', label: 'Süresi geçti' }

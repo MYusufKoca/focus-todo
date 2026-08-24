@@ -1,12 +1,12 @@
 import { categories } from '../../constants/todoOptions.js'
-import { getLocalDateKey } from '../../utils/dateHelpers.js'
+import { getLocalDateKey, isValidDueDate } from '../../utils/dateHelpers.js'
 
 export default function Sidebar({ todos }) {
   const today = getLocalDateKey()
   const counts = {
     all: todos.length,
     today: todos.filter((todo) => todo.dueDate === today).length,
-    upcoming: todos.filter((todo) => todo.dueDate && todo.dueDate > today && !todo.completed).length,
+    upcoming: todos.filter((todo) => isValidDueDate(todo.dueDate) && todo.dueDate > today && !todo.completed).length,
     completed: todos.filter((todo) => todo.completed).length,
   }
 
