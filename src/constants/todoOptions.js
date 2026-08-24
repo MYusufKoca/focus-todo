@@ -10,3 +10,15 @@ export const filterOptions = [
   { value: 'active', label: 'Devam eden' },
   { value: 'completed', label: 'Tamamlanan' },
 ]
+
+export const categoryOptions = [
+  { value: 'personal', label: 'Kişisel' },
+  { value: 'work', label: 'İş' },
+  { value: 'education', label: 'Eğitim' },
+]
+
+export const priorityOptions = [
+  { value: 'low', label: 'Düşük' },
+  { value: 'medium', label: 'Orta' },
+  { value: 'high', label: 'Yüksek' },
+]
