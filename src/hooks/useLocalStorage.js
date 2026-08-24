@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react'
 
 export function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {
+    const fallbackValue = typeof initialValue === 'function' ? initialValue() : initialValue
     try {
       const savedValue = window.localStorage.getItem(key)
-      if (savedValue === null) return initialValue
+      if (savedValue === null) return fallbackValue
 
       const parsedValue = JSON.parse(savedValue)
-      if (Array.isArray(initialValue) && !Array.isArray(parsedValue)) return initialValue
-      return parsedValue ?? initialValue
+      if (Array.isArray(fallbackValue) && !Array.isArray(parsedValue)) return fallbackValue
+      return parsedValue ?? fallbackValue
     } catch {
-      return initialValue
+      return fallbackValue
     }
   })
 

@@ -27,3 +27,13 @@ export function hasActiveFilters(filters) {
     || filters.category !== 'all'
     || filters.priority !== 'all'
 }
+
+export function sortTodos(todos) {
+  return [...todos].sort((first, second) => {
+    if (first.completed !== second.completed) return Number(first.completed) - Number(second.completed)
+    if (!first.dueDate && second.dueDate) return 1
+    if (first.dueDate && !second.dueDate) return -1
+    if (first.dueDate !== second.dueDate) return first.dueDate.localeCompare(second.dueDate)
+    return (second.createdAt ?? '').localeCompare(first.createdAt ?? '')
+  })
+}
