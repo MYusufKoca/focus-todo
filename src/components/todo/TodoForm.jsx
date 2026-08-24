@@ -13,8 +13,14 @@ const initialForm = {
 
 const fieldClassName = 'w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-forest focus:ring-3 focus:ring-mint'
 
-export default function TodoForm({ onSubmit, onCancel }) {
-  const [form, setForm] = useState(initialForm)
+export default function TodoForm({ onSubmit, onCancel, initialValues, mode = 'create' }) {
+  const [form, setForm] = useState(() => initialValues ? {
+    title: initialValues.title,
+    description: initialValues.description,
+    category: initialValues.category,
+    priority: initialValues.priority,
+    dueDate: initialValues.dueDate,
+  } : initialForm)
   const [titleError, setTitleError] = useState('')
 
   const updateField = (event) => {
@@ -46,7 +52,7 @@ export default function TodoForm({ onSubmit, onCancel }) {
         <div><label htmlFor="todo-priority" className="mb-1.5 block text-sm font-medium text-slate-700">Öncelik</label><select id="todo-priority" name="priority" value={form.priority} onChange={updateField} className={fieldClassName}>{priorityOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></div>
       </div>
       <Input id="todo-due-date" name="dueDate" type="date" label="Son tarih" value={form.dueDate} onChange={updateField} />
-      <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={onCancel}>Vazgeç</Button><Button type="submit">Görevi oluştur</Button></div>
+      <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={onCancel}>Vazgeç</Button><Button type="submit">{mode === 'edit' ? 'Değişiklikleri kaydet' : 'Görevi oluştur'}</Button></div>
     </form>
   )
 }

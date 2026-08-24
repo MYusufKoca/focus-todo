@@ -7,7 +7,7 @@ export const categories = [
 
 export const filterOptions = [
   { value: 'all', label: 'Tüm durumlar' },
-  { value: 'active', label: 'Devam eden' },
+  { value: 'active', label: 'Aktif' },
   { value: 'completed', label: 'Tamamlanan' },
 ]
 
